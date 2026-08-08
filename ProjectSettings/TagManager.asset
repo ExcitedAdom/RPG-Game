@@ -44,6 +44,8 @@ TagManager:
   - name: Ground
     uniqueID: 4029130455
     locked: 0
+  - name: Rugs
+    uniqueID: 3540105979
   - name: Collision
     uniqueID: 368802859
     locked: 0
