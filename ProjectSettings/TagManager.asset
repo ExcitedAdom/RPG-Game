@@ -46,6 +46,7 @@ TagManager:
     locked: 0
   - name: Rugs
     uniqueID: 3540105979
+    locked: 0
   - name: Collision
     uniqueID: 368802859
     locked: 0
