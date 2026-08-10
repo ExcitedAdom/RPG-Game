@@ -1,51 +1,43 @@
-// using UnityEngine;
-// using UnityEngine.UI;
-// using System.Collections;
-// using UnityEngine.Events;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.Events;
 
-// public class PlayerHealth : MonoBehaviour
-// {
-//     [SerializeField] private int maxHealth = 100;
-//     [SerializeField] private Slider healthSlider;
-//     private int currentHealth;
+public class PlayerHealth : MonoBehaviour
+{
+    [SerializeField] private float maxHealth, currentHealth;
+    public UnityEvent<float, float> OnHealthChanged = new UnityEvent<float, float>();
+    public UnityEvent OnDeath = new UnityEvent();
 
-//     public UnityEvent<int, int> OnHealthChanged;
-//     public UnityEvent OnDeath;
+    public float MaxHealth => maxHealth;
+    public float CurrentHealth => currentHealth;
 
-//     void Start()
-//     {
-//         currentHealth = maxHealth;
-//         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-//         UpdateHealthUI();
-//     }
+    void Start()
+    {
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
 
-//     public void TakeDamage(int amount)
-//     {
-//         currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
-//         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-//         UpdateHealthUI();
+    public void TakeDamage(float amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
 
-//         if (currentHealth <= 0)
-//         {
-//             Die();
-//         }   
-//     }
+        // if (currentHealth <= 0)
+        // {
+        //     Die();
+        // }   
+    }
 
-//     public void Heal(int amount)
-//     {
-//         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-//         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-//         UpdateHealthUI();
-//     }
+    public void Heal(float amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
 
-//     private void UpdateHealthUI()
-//     {
-//         healthSlider.value = (float)currentHealth / maxHealth;
-//     }
-
-//     private void Die()
-//     {
-//         OnDeath?.Invoke();
-//         GameManager.Instance.GameOver();
-//     }
-// }
+    // private void Die()
+    // {
+    //     OnDeath?.Invoke();
+    //     GameManager.Instance.GameOver();
+    // }
+}
