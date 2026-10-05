@@ -9,18 +9,22 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
-    private Vector2 lastMoveInput; 
+    private Vector2 lastMoveInput;
+    private PlayerHealth playerHealth;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        if (playerHealth != null && playerHealth.IsKnockedBack)
+        return;
 
+        rb.linearVelocity = moveInput * moveSpeed;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -38,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("LastinputX", lastMoveInput.x);
             animator.SetFloat("LastinputY", lastMoveInput.y);
         }
-        animator.SetFloat("InputX", moveInput.x);
-        animator.SetFloat("InputY", moveInput.y);
+            animator.SetFloat("InputX", moveInput.x);
+            animator.SetFloat("InputY", moveInput.y);
     }
 }
